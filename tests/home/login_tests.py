@@ -1,8 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+from pages.home.login_page import LoginPage
+import unittest
 
-class LoginTests():
+
+class LoginTests(unittest.TestCase):
     def test_validLogin(self):
         baseURL = "https://letskodeit.teachable.com/"
         driver = webdriver.Firefox()
@@ -10,19 +12,8 @@ class LoginTests():
         driver.implicitly_wait(3)
         driver.get(baseURL)
 
-        loginLink = driver.find_element(By.LINK_TEXT, "login")
-        loginLink.click()
-
-        emailField = driver.find_element(By.ID, "user_email")
-        emailField.send_keys("test@mail.com")
-
-        passwordField = driver.find_element(By.ID, "user_password")
-        passwordField.send_keys("testtest")
-
-        time.sleep(2)
-
-        loginButton = driver.find_element(By.NAME, "commit")
-        loginButton.click()
+        lp = LoginPage(driver)
+        lp.login("test@mail.com", "testtest")
 
         userIcon = driver.find_element(By.XPATH, ".//*[@id='navbar']//span[text()='User Settings']")
         if userIcon is not None:
@@ -30,5 +21,3 @@ class LoginTests():
         else:
             print("Login Failure")
 
-ff = LoginTests()
-ff.test_validLogin()
