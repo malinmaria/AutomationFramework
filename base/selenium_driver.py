@@ -41,15 +41,25 @@ class SeleniumDriver():
     def elementClick(self, locator, locatorType="id"):
         try:
             element = self.getElement(locator, locatorType)
+            element.send_keys(data)
+            element.click()
+            print("Send data on element with locator: " + locator + " locatorType: " + locatorType)
+        except:
+            print("Cannot send data on the element with locator: " + locator + " locatorType: " + locatorType)
+            print_stack()
+
+    def sendKeys(self, data, locator, locatorType="id"):
+        try:
+            element = self.getElement(locator, locatorType)
             element.click()
             print("Clicked on element with locator: " + locator + " locatorType: " + locatorType)
         except:
             print("Cannot click on the element with locator: " + locator + " locatorType: " + locatorType)
             print_stack()
 
-    def isElementPresent(self, locator, byType):
+    def isElementPresent(self, locator, locatorType="id"):
         try:
-            element = self.driver.find_element(byType, locator)
+            element = self.getElement(locator, locatorType)
             if element is not None:
                 print("Element Found")
                 return True
