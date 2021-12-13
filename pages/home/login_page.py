@@ -55,3 +55,6 @@ class LoginPage(SeleniumDriver):
         result = self.isElementPresent(".//*[@id='navbar']//span[text()='User Settings']", locatorType="xpath")
         return result
 
+    def verifyLoginFailed(self):
+        result = self.isElementPresent("//div[contains(text(),'Invalid email or password')]", locatorType="xpath")
+        return result
