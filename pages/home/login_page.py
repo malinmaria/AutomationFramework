@@ -50,3 +50,8 @@ class LoginPage(SeleniumDriver):
         self.enterEmail(email)
         self.enterPassword(password)
         self.clickLoginButton()
+
+    def verifyLoginSuccessful(self):
+        result = self.isElementPresent(".//*[@id='navbar']//span[text()='User Settings']", locatorType="xpath")
+        return result
+
